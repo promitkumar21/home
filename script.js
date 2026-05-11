@@ -398,6 +398,13 @@ async function runBootSequence() {
                 block.appendChild(okSpan);
             } else {
                 await typeText(textSpan, line.text, CONFIG.bootTypingSpeed);
+                if (line.highlight) {
+                    let html = textSpan.innerHTML;
+                    line.highlight.forEach(word => {
+                        html = html.replace(word, `<span style="color: var(--accent-color);">${word}</span>`);
+                    });
+                    textSpan.innerHTML = html;
+                }
             }
         }
         scrollToBottom();
