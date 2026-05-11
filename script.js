@@ -141,7 +141,7 @@ class AudioSystem {
             source.connect(gainNode);
             gainNode.connect(this.audioContext.destination);
             source.start(0);
-        } catch (e) {}
+        } catch (e) { }
     }
 }
 
