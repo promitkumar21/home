@@ -20,8 +20,8 @@ const CONFIG = {
         { text: '', ok: false },
         { text: 'Protocol established. Welcome.', ok: false },
         { text: '', ok: false },
-        { text: 'I am PromitBot, an AI built to present the work of Promit Kumar.', ok: false },
-        { text: "Type 'help' for a list of commands, or ask me a question in plain English.", ok: false },
+        { text: "I am PromitBot, an AI built to present the work of <span style='color: var(--accent-color);'>Promit Kumar</span>.", ok: false, html: true },
+        { text: "Type <span style='color: var(--accent-color);'>'help'</span> for a list of commands, or ask me a question in plain English.", ok: false, html: true },
     ],
 };
 
@@ -100,7 +100,7 @@ class AudioSystem {
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             try {
-                const response = await fetch('click.mp3');
+                const response = await fetch(new URL('click.mp3', window.location.href).href);
                 if (response.ok) {
                     const arrayBuffer = await response.arrayBuffer();
                     this.clickBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
@@ -141,7 +141,7 @@ class AudioSystem {
             source.connect(gainNode);
             gainNode.connect(this.audioContext.destination);
             source.start(0);
-        } catch (e) { }
+        } catch (e) {}
     }
 }
 
@@ -465,6 +465,13 @@ document.addEventListener('click', () => {
 
 document.addEventListener('keydown', () => {
     audioSystem.init();
+}, { once: true });
+
+// Also try to resume audio context on user interaction (browsers block audio until interaction)
+document.addEventListener('click', async () => {
+    if (audioSystem.audioContext && audioSystem.audioContext.state === 'suspended') {
+        await audioSystem.audioContext.resume();
+    }
 }, { once: true });
 
 // ============================================
