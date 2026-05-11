@@ -20,8 +20,8 @@ const CONFIG = {
         { text: '', ok: false },
         { text: 'Protocol established. Welcome.', ok: false },
         { text: '', ok: false },
-        { text: "I am PromitBot, an AI built to present the work of <span style='color: var(--accent-color);'>Promit Kumar</span>.", ok: false, html: true },
-        { text: "Type <span style='color: var(--accent-color);'>'help'</span> for a list of commands, or ask me a question in plain English.", ok: false, html: true },
+        { text: 'I am PromitBot, an AI built to present the work of Promit Kumar.', ok: false, highlight: ['Promit Kumar'] },
+        { text: "Type 'help' for a list of commands, or ask me a question in plain English.", ok: false, highlight: ["'help'"] },
     ],
 };
 
