@@ -1,0 +1,438 @@
+/* ============================================
+   TERMINAL PORTFOLIO - STYLES
+   Replicating pujasridhar.github.io aesthetic
+   ============================================ */
+
+/* CSS Variables for easy theming */
+:root {
+    --bg-color: #c8c8c8;
+    --bg-scanline: rgba(0, 0, 0, 0.03);
+    --text-color: #2a2a2a;
+    --text-dim: #666666;
+    --accent-color: #c4621e;
+    --accent-hover: #d4732f;
+    --border-color: #999999;
+    --terminal-font: 'VT323', 'Courier New', Courier, monospace;
+    --font-size: 18px;
+    --line-height: 1.6;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--terminal-font);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* CRT Scanlines Overlay */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            var(--bg-scanline) 2px,
+            var(--bg-scanline) 4px);
+    opacity: 0.6;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 16px;
+    color: var(--text-dim);
+}
+
+.header-left #clock {
+    font-variant-numeric: tabular-nums;
+}
+
+.header-left .weather::before {
+    content: "☁ ";
+    font-size: 14px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.icon-link {
+    color: var(--text-color);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-link:hover {
+    opacity: 1;
+    color: var(--accent-color);
+}
+
+.icon-link svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================
+   TERMINAL OUTPUT AREA
+   ============================================ */
+.terminal-output {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+/* Output blocks */
+.output-block {
+    margin-bottom: 16px;
+    animation: fadeIn 0.1s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Command echo */
+.command-echo {
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+
+.command-echo .prompt-text {
+    color: var(--text-color);
+}
+
+/* Section headings */
+.section-heading {
+    color: var(--accent-color);
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 12px;
+    text-decoration: underline;
+    text-decoration-color: var(--accent-color);
+    text-underline-offset: 4px;
+}
+
+/* Paragraph text */
+.output-text {
+    color: var(--text-color);
+    margin-bottom: 12px;
+    text-align: justify;
+    word-wrap: break-word;
+}
+
+/* Lists */
+.output-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 12px;
+}
+
+.output-list li {
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.output-list li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Links in output */
+.output-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent-color);
+    transition: color 0.2s ease;
+}
+
+.output-link:hover {
+    color: var(--accent-hover);
+    border-bottom-style: solid;
+}
+
+/* Blog cards */
+.blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.blog-card {
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.02);
+    transition: border-color 0.2s ease;
+}
+
+.blog-card:hover {
+    border-color: var(--accent-color);
+}
+
+.blog-card-title {
+    color: var(--accent-color);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.blog-card-text {
+    color: var(--text-dim);
+    font-size: 16px;
+}
+
+/* Error / Unknown command */
+.error-text {
+    color: #8b0000;
+}
+
+/* Help command styling */
+.help-commands {
+    color: var(--accent-color);
+    line-height: 2;
+}
+
+.help-hint {
+    color: var(--text-dim);
+    font-style: italic;
+    margin-top: 12px;
+}
+
+/* Boot sequence */
+.boot-line {
+    margin-bottom: 4px;
+    animation: fadeIn 0.05s ease-out;
+}
+
+.boot-line.ok::after {
+    content: " OK.";
+    color: #2e7d32;
+}
+
+/* Cursor blink for typing animation */
+.typing-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1.2em;
+    background-color: var(--text-color);
+    animation: blink 1s step-end infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   INPUT LINE
+   ============================================ */
+.input-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    position: sticky;
+    bottom: 0;
+    background-color: var(--bg-color);
+}
+
+.prompt {
+    color: var(--text-color);
+    white-space: nowrap;
+    font-size: var(--font-size);
+    user-select: none;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    font-family: var(--terminal-font);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    caret-color: var(--text-color);
+    padding: 0;
+    margin: 0;
+}
+
+.terminal-input::placeholder {
+    color: transparent;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    text-align: center;
+    padding-top: 16px;
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.footer-separator {
+    margin: 0 8px;
+    color: var(--border-color);
+}
+
+.footer-link {
+    color: var(--text-dim);
+    text-decoration: underline;
+    text-decoration-color: var(--border-color);
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-color);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 600px) {
+    :root {
+        --font-size: 16px;
+    }
+
+    .container {
+        padding: 20px 16px 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .input-line {
+        position: relative;
+    }
+
+    .footer {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    :root {
+        --font-size: 14px;
+    }
+
+    .header-left {
+        font-size: 14px;
+    }
+
+    .icon-link svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-dim);
+}
+
+/* Selection color */
+::selection {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
